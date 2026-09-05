@@ -209,5 +209,3 @@ Tests do not download models or initialize CUDA:
 python -m compileall model_server tests
 .runtime/transformers/bin/python -m pytest
 ```
-
-The target V100 acceptance workflow is intentionally separate from offline automated tests. See `IMPLEMENTATION_REPORT.md` for the verification record and limitations.
