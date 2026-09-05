@@ -1,0 +1,18 @@
+# Optional systemd --user template.
+# Replace /ABSOLUTE/PATH and do not also run a detached CLI-managed instance.
+[Unit]
+Description=HF Model Serve
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/ABSOLUTE/PATH/hf-model-serve
+ExecStart=/ABSOLUTE/PATH/hf-model-serve/model-server start --config configs/gams3-v100-int8.yaml --no-detach
+ExecStop=/ABSOLUTE/PATH/hf-model-serve/model-server stop
+Restart=on-failure
+RestartSec=10
+Environment=NO_PROXY=127.0.0.1,localhost
+Environment=no_proxy=127.0.0.1,localhost
+
+[Install]
+WantedBy=default.target

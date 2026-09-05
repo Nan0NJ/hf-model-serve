@@ -1,0 +1,16 @@
+backend: transformers
+model: cjvt/GaMS3-12B-Instruct
+served_model_name: gams3-12b
+quantization: int8
+dtype: float32
+attention: sdpa
+gpus: "0"
+host: 127.0.0.1
+port: 8000
+max_context: 4096
+max_output_tokens: 1024
+max_concurrency: 1
+minimum_vram_headroom: 0.08
+trust_remote_code: false
+detach: true
+

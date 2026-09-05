@@ -1,0 +1,14 @@
+backend: vllm
+model: mistralai/Mistral-7B-Instruct-v0.3
+served_model_name: mistral-7b-vllm
+quantization: none
+dtype: float16
+gpus: "0,1"
+host: 127.0.0.1
+port: 8000
+max_context: 8192
+tensor_parallel: 2
+gpu_memory_utilization: 0.90
+max_num_seqs: 4
+detach: true
+

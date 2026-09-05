@@ -1,0 +1,14 @@
+# Optional template.
+FROM nvidia/cuda:12.8.1-runtime-ubuntu24.04
+ENV DEBIAN_FRONTEND=noninteractive PYTHONUNBUFFERED=1
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-venv ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements/control.lock requirements/vllm.lock /app/requirements/
+RUN python3 -m venv /app/.runtime/vllm \
+    && /app/.runtime/vllm/bin/pip install --no-cache-dir -r requirements/control.lock -r requirements/vllm.lock
+COPY . /app
+ENV PATH=/app/.runtime/vllm/bin:$PATH
+EXPOSE 8000
+ENTRYPOINT ["./model-server"]
+CMD ["start", "--config", "configs/vllm-multigpu-example.yaml", "--no-detach", "--skip-doctor"]

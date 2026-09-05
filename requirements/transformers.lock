@@ -1,0 +1,11 @@
+# CUDA 12.6 wheel runtime. The system CUDA toolkit/nvcc is not used by this wheel.
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.7.1+cu126
+transformers==4.53.3
+accelerate==1.9.0
+bitsandbytes==0.46.1
+peft==0.16.0
+huggingface-hub==0.33.4
+safetensors==0.5.3
+sentencepiece==0.2.0
+

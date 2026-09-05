@@ -1,0 +1,16 @@
+backend: transformers
+model: mistralai/Mistral-7B-Instruct-v0.3
+served_model_name: mistral-7b-int4
+quantization: int4
+dtype: float32
+attention: sdpa
+bnb_4bit_type: nf4
+bnb_4bit_double_quant: true
+bnb_compute_dtype: float32
+gpus: "0"
+host: 127.0.0.1
+port: 8000
+max_context: 4096
+max_concurrency: 1
+detach: true
+

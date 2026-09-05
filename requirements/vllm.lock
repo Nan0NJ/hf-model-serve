@@ -1,0 +1,3 @@
+# vLLM owns its tightly coupled PyTorch/CUDA dependency set.
+vllm==0.10.1
+

@@ -1,0 +1,13 @@
+backend: transformers
+model: mistralai/Mistral-7B-Instruct-v0.3
+served_model_name: mistral-7b-fp16
+quantization: none
+dtype: float16
+attention: sdpa
+gpus: "0"
+host: 127.0.0.1
+port: 8000
+max_context: 8192
+max_concurrency: 1
+detach: true
+

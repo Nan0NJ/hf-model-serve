@@ -1,0 +1,6 @@
+# Control/API plane, tested with Python 3.12. These are top-level exact pins.
+fastapi==0.116.1
+pydantic==2.11.7
+uvicorn[standard]==0.35.0
+pytest==8.4.1
+

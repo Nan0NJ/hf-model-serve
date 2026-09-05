@@ -1,0 +1,68 @@
+# Optional example only.
+# Build/push the Transformers image, supply model credentials as a Secret, and adapt storage/security/network policy before real use.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hf-model-serve
+spec:
+  replicas: 1 # More replicas duplicate model weights and need one GPU each.
+  selector:
+    matchLabels:
+      app: hf-model-serve
+  template:
+    metadata:
+      labels:
+        app: hf-model-serve
+    spec:
+      containers:
+        - name: server
+          image: example/hf-model-serve-transformers:1.0.0
+          args:
+            - start
+            - --config
+            - configs/gams3-v100-int8.yaml
+            - --host
+            - 0.0.0.0
+            - --no-detach
+            - --skip-doctor
+          ports:
+            - name: http
+              containerPort: 8000
+          resources:
+            limits:
+              nvidia.com/gpu: "1"
+            requests:
+              cpu: "2"
+              memory: 24Gi
+              nvidia.com/gpu: "1"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 60
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 300
+            periodSeconds: 30
+          env:
+            - name: NO_PROXY
+              value: 127.0.0.1,localhost
+            - name: no_proxy
+              value: 127.0.0.1,localhost
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hf-model-serve
+spec:
+  selector:
+    app: hf-model-serve
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
+  type: ClusterIP

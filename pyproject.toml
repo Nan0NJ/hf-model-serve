@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hf-model-serve"
+version = "1.0.0"
+description = "Local Transformers/vLLM model server with diagnostics and process management"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Nenad Jakovchevski"}]
+
+[project.scripts]
+model-server = "model_server.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.setuptools.packages.find]
+include = ["model_server*"]

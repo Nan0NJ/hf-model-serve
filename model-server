@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+"""Repository-local entry point; no virtualenv activation required."""
+from model_server.cli import main
+
+raise SystemExit(main())
+

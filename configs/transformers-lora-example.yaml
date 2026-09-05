@@ -1,0 +1,16 @@
+backend: transformers
+model: mistralai/Mistral-7B-Instruct-v0.3
+served_model_name: mistral-local-adapter
+quantization: int4
+dtype: float32
+attention: sdpa
+bnb_compute_dtype: float32
+gpus: "0"
+lora_adapter: /absolute/path/to/peft-adapter
+lora_name: local-adapter
+host: 127.0.0.1
+port: 8000
+max_context: 4096
+max_concurrency: 1
+detach: true
+
